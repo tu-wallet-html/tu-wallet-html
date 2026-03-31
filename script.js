@@ -141,4 +141,11 @@ async function updateUI() {
     li.innerText = item;
     list.appendChild(li);
   });
+const total =
+  wallet.BTC * prices.BTC +
+  wallet.ETH * prices.ETH +
+  wallet.USDT * prices.USDT +
+  wallet.BNB * prices.BNB;
+
+document.getElementById("total").innerText = "€" + total.toFixed(2);
 }
