@@ -1,4 +1,4 @@
-const PASSWORD = "1234"; // clave fija
+const PASSWORD = "1234";
 
 let user = localStorage.getItem("user") || "";
 
@@ -15,8 +15,8 @@ checkLogin();
 updateUI();
 
 function login() {
-  const dni = document.getElementById("dni").value;
-  const pass = document.getElementById("password").value;
+  const dni = document.getElementById("dni").value.trim();
+  const pass = document.getElementById("password").value.trim();
 
   if (pass !== PASSWORD) {
     alert("Contraseña incorrecta");
@@ -37,6 +37,7 @@ function login() {
 
 function logout() {
   localStorage.removeItem("user");
+  user = "";
   location.reload();
 }
 
@@ -45,6 +46,9 @@ function checkLogin() {
     document.getElementById("loginCard").style.display = "none";
     document.getElementById("walletApp").style.display = "block";
     document.getElementById("userText").innerText = "Usuario: " + user;
+  } else {
+    document.getElementById("loginCard").style.display = "block";
+    document.getElementById("walletApp").style.display = "none";
   }
 }
 
@@ -56,6 +60,8 @@ function addMoney() {
     wallet[crypto] += amount;
     history.unshift("➕ " + user + " añadió " + amount + " " + crypto);
     save();
+  } else {
+    alert("Introduce una cantidad válida");
   }
 }
 
@@ -64,9 +70,15 @@ function removeMoney() {
   const amount = Number(document.getElementById("amount").value);
 
   if (amount > 0) {
-    wallet[crypto] -= amount;
-    history.unshift("➖ " + user + " quitó " + amount + " " + crypto);
-    save();
+    if (wallet[crypto] >= amount) {
+      wallet[crypto] -= amount;
+      history.unshift("➖ " + user + " quitó " + amount + " " + crypto);
+      save();
+    } else {
+      alert("No tienes suficiente saldo en " + crypto);
+    }
+  } else {
+    alert("Introduce una cantidad válida");
   }
 }
 
@@ -76,33 +88,29 @@ function save() {
   updateUI();
 }
 
-function updateUI() {
-  document.getElementById("btc").innerText = wallet.BTC;
-  document.getElementById("eth").innerText = wallet.ETH;
-  document.getElementById("usdt").innerText = wallet.USDT;
-  document.getElementById("bnb").innerText = wallet.BNB;
-
-  const list = document.getElementById("history");
-  list.innerHTML = "";
-
-  history.forEach(item => {
-    const li = document.createElement("li");
-    li.innerText = item;
-    list.appendChild(li);
-  });
 async function getPrices() {
-  const res = await fetch(
-    "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,binancecoin&vs_currencies=eur"
-  );
+  try {
+    const res = await fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether,binancecoin&vs_currencies=eur"
+    );
 
-  const data = await res.json();
+    const data = await res.json();
 
-  return {
-    BTC: data.bitcoin.eur,
-    ETH: data.ethereum.eur,
-    USDT: data.tether.eur,
-    BNB: data.binancecoin.eur
-  };
+    return {
+      BTC: data.bitcoin.eur,
+      ETH: data.ethereum.eur,
+      USDT: data.tether.eur,
+      BNB: data.binancecoin.eur
+    };
+  } catch (error) {
+    console.error("Error cargando precios:", error);
+    return {
+      BTC: 0,
+      ETH: 0,
+      USDT: 0,
+      BNB: 0
+    };
+  }
 }
 
 async function updateUI() {
@@ -123,10 +131,14 @@ async function updateUI() {
   const list = document.getElementById("history");
   list.innerHTML = "";
 
+  if (history.length === 0) {
+    list.innerHTML = "<li>No hay movimientos todavía</li>";
+    return;
+  }
+
   history.forEach(item => {
     const li = document.createElement("li");
     li.innerText = item;
     list.appendChild(li);
   });
-}
 }
