@@ -2,24 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Wallet</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="app">
+    <div class="card top-card">
+      <p class="label">Balance total</p>
+      <h1 id="balance">$0</h1>
+    </div>
 
-  <h1>💰 Mi Wallet</h1>
+    <div class="card action-card">
+      <h2>Movimientos</h2>
+      <input type="number" id="amount" placeholder="Cantidad">
+      <div class="buttons">
+        <button onclick="addMoney()">➕ Agregar</button>
+        <button onclick="removeMoney()">➖ Quitar</button>
+      </div>
+    </div>
 
-  <div class="card">
-    <p>Balance:</p>
-    <h2 id="balance">$0</h2>
+    <div class="card history-card">
+      <h2>Historial</h2>
+      <ul id="history"></ul>
+    </div>
   </div>
-
-  <input type="number" id="amount" placeholder="Cantidad">
-
-  <br><br>
-
-  <button onclick="addMoney()">➕ Agregar</button>
-  <button onclick="removeMoney()">➖ Quitar</button>
 
   <script src="script.js"></script>
 </body>
