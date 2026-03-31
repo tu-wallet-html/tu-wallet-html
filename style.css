@@ -1,18 +1,95 @@
 body {
+  margin: 0;
   background: #0f172a;
   color: white;
-  font-family: Arial;
-  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  max-width: 420px;
+  margin: 20px auto;
+  padding: 10px;
 }
 
 .card {
   background: #1e293b;
-  margin: 15px;
+  margin-bottom: 20px;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-input, select, button {
-  margin: 5px;
+h2 {
+  margin-top: 0;
+}
+
+/* LOGIN */
+#loginCard input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* SALDO */
+#btc, #eth, #usdt, #bnb {
+  font-weight: bold;
+}
+
+/* INPUTS */
+input, select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* BOTONES */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+/* BOTÓN AGREGAR */
+button:nth-of-type(1) {
+  background: #16a34a;
+  color: white;
+}
+
+/* BOTÓN QUITAR */
+button:nth-of-type(2) {
+  background: #dc2626;
+  color: white;
+}
+
+/* LOGOUT */
+button[onclick="logout()"] {
+  background: #475569;
+}
+
+/* HISTORIAL */
+#history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#history li {
+  background: #334155;
   padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* EFECTO PRO */
+.card {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.05);
 }
