@@ -1,29 +1,48 @@
-let balance = localStorage.getItem("balance") || 0;
-balance = Number(balance);
+let balance = Number(localStorage.getItem("balance")) || 0;
+let history = JSON.parse(localStorage.getItem("history")) || [];
 
 updateUI();
 
 function addMoney() {
-  let amount = Number(document.getElementById("amount").value);
+  const amount = Number(document.getElementById("amount").value);
+
   if (amount > 0) {
     balance += amount;
-    save();
+    history.unshift("➕ Agregaste $" + amount);
+    saveData();
   }
 }
 
 function removeMoney() {
-  let amount = Number(document.getElementById("amount").value);
+  const amount = Number(document.getElementById("amount").value);
+
   if (amount > 0) {
     balance -= amount;
-    save();
+    history.unshift("➖ Quitaste $" + amount);
+    saveData();
   }
 }
 
-function save() {
+function saveData() {
   localStorage.setItem("balance", balance);
+  localStorage.setItem("history", JSON.stringify(history));
   updateUI();
 }
 
 function updateUI() {
   document.getElementById("balance").innerText = "$" + balance;
+
+  const historyList = document.getElementById("history");
+  historyList.innerHTML = "";
+
+  if (history.length === 0) {
+    historyList.innerHTML = "<li>No hay movimientos todavía</li>";
+    return;
+  }
+
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.innerText = item;
+    historyList.appendChild(li);
+  });
 }
