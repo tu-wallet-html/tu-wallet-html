@@ -2,62 +2,61 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wallet Pro</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="app">
+  <div class="app">
 
-  <!-- LOGIN -->
-  <div class="card" id="loginCard">
-    <h2>🔐 Acceso</h2>
-    <input type="text" id="dni" placeholder="DNI">
-    <input type="password" id="password" placeholder="Contraseña">
-    <button onclick="login()">Entrar</button>
+    <div class="card" id="loginCard">
+      <h2>🔐 Acceso</h2>
+      <input type="text" id="dni" placeholder="DNI">
+      <input type="password" id="password" placeholder="Contraseña">
+      <button onclick="login()">Entrar</button>
+    </div>
+
+    <div id="walletApp" style="display:none;">
+
+      <div class="card">
+        <h2 id="userText"></h2>
+        <button onclick="logout()">Cerrar sesión</button>
+      </div>
+
+      <div class="card">
+        <h2>💰 Saldos</h2>
+        <p>BTC: <span id="btc">0</span></p>
+        <p>ETH: <span id="eth">0</span></p>
+        <p>USDT: <span id="usdt">0</span></p>
+        <p>BNB: <span id="bnb">0</span></p>
+      </div>
+
+      <div class="card">
+        <h2>Operaciones</h2>
+
+        <select id="crypto">
+          <option value="BTC">BTC</option>
+          <option value="ETH">ETH</option>
+          <option value="USDT">USDT</option>
+          <option value="BNB">BNB</option>
+        </select>
+
+        <input type="number" id="amount" placeholder="Cantidad">
+
+        <button onclick="addMoney()">➕ Agregar</button>
+        <button onclick="removeMoney()">➖ Quitar</button>
+      </div>
+
+      <div class="card">
+        <h2>📊 Historial</h2>
+        <ul id="history"></ul>
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- APP -->
-  <div id="walletApp" style="display:none;">
-
-    <div class="card">
-      <h2 id="userText"></h2>
-      <button onclick="logout()">Cerrar sesión</button>
-    </div>
-
-    <div class="card">
-      <h2>💰 Saldos</h2>
-      <p>BTC: <span id="btc">0</span></p>
-      <p>ETH: <span id="eth">0</span></p>
-      <p>USDT: <span id="usdt">0</span></p>
-      <p>BNB: <span id="bnb">0</span></p>
-    </div>
-
-    <div class="card">
-      <h2>Operaciones</h2>
-
-      <select id="crypto">
-        <option value="BTC">BTC</option>
-        <option value="ETH">ETH</option>
-        <option value="USDT">USDT</option>
-        <option value="BNB">BNB</option>
-      </select>
-
-      <input type="number" id="amount" placeholder="Cantidad">
-
-      <button onclick="addMoney()">➕ Agregar</button>
-      <button onclick="removeMoney()">➖ Quitar</button>
-    </div>
-
-    <div class="card">
-      <h2>📊 Historial</h2>
-      <ul id="history"></ul>
-    </div>
-
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
