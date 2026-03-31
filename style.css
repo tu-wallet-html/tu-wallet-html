@@ -1,43 +1,62 @@
 body {
   margin: 0;
-  background: #0b1220;
-  font-family: Arial, sans-serif;
+  background: #0b0f1a;
+  font-family: -apple-system, BlinkMacSystemFont, Arial;
   color: white;
   display: flex;
   justify-content: center;
 }
 
-/* CONTENEDOR TIPO WIDGET */
+/* CONTENEDOR */
 .app {
-  width: 350px;
-  margin-top: 30px;
+  width: 360px;
+  margin-top: 20px;
 }
 
 /* TARJETAS */
 .card {
-  background: rgba(30, 41, 59, 0.8);
+  background: #121826;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 15px;
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.05);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
 }
 
-/* TITULOS */
-h2 {
-  margin: 0 0 10px;
+/* HEADER */
+#userText {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 10px;
 }
 
-/* SALDOS */
-p {
+/* BALANCE GRANDE */
+.balance-card {
+  text-align: center;
+}
+
+.balance-amount {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* CRYPTO LIST */
+.crypto-item {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
-  margin: 8px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-span {
+.crypto-item:last-child {
+  border-bottom: none;
+}
+
+.crypto-name {
+  font-weight: 500;
+}
+
+.crypto-value {
   font-weight: bold;
 }
 
@@ -65,17 +84,24 @@ button {
   transition: 0.2s;
 }
 
-/* BOTONES COLORES */
+/* BOTÓN VERDE */
 button:nth-of-type(1) {
-  background: #22c55e;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
 }
 
+/* BOTÓN ROJO */
 button:nth-of-type(2) {
-  background: #ef4444;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
 }
 
+/* LOGOUT */
+button[onclick="logout()"] {
+  background: #334155;
+}
+
+/* HOVER */
 button:hover {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 /* HISTORIAL */
@@ -87,8 +113,14 @@ button:hover {
 
 #history li {
   background: #1e293b;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
   margin-top: 8px;
   font-size: 14px;
+}
+
+/* EFECTO PRO */
+.card {
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.03);
 }
