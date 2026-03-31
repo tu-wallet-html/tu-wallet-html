@@ -1,90 +1,93 @@
-let currentUser = localStorage.getItem("currentUser") || "";
-let balance = Number(localStorage.getItem("balance")) || 0;
+const PASSWORD = "1234"; // clave fija
+
+let user = localStorage.getItem("user") || "";
+
+let wallet = JSON.parse(localStorage.getItem("wallet")) || {
+  BTC: 0,
+  ETH: 0,
+  USDT: 0,
+  BNB: 0
+};
+
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
 checkLogin();
 updateUI();
 
 function login() {
-  const username = document.getElementById("username").value.trim();
+  const dni = document.getElementById("dni").value;
+  const pass = document.getElementById("password").value;
 
-  if (username === "") {
-    alert("Escribe un nombre de usuario");
+  if (pass !== PASSWORD) {
+    alert("Contraseña incorrecta");
     return;
   }
 
-  currentUser = username;
-  localStorage.setItem("currentUser", currentUser);
+  if (dni === "") {
+    alert("Introduce DNI");
+    return;
+  }
+
+  user = dni;
+  localStorage.setItem("user", user);
+
   checkLogin();
   updateUI();
 }
 
 function logout() {
-  localStorage.removeItem("currentUser");
-  currentUser = "";
-  document.getElementById("loginCard").style.display = "block";
-  document.getElementById("walletApp").style.display = "none";
+  localStorage.removeItem("user");
+  location.reload();
 }
 
 function checkLogin() {
-  if (currentUser) {
+  if (user) {
     document.getElementById("loginCard").style.display = "none";
     document.getElementById("walletApp").style.display = "block";
-    document.getElementById("welcomeUser").innerText = "Hola, " + currentUser;
-  } else {
-    document.getElementById("loginCard").style.display = "block";
-    document.getElementById("walletApp").style.display = "none";
+    document.getElementById("userText").innerText = "Usuario: " + user;
   }
 }
 
 function addMoney() {
-  const amount = Number(document.getElementById("amount").value);
   const crypto = document.getElementById("crypto").value;
+  const amount = Number(document.getElementById("amount").value);
 
   if (amount > 0) {
-    balance += amount;
-    history.unshift("➕ " + currentUser + " agregó " + amount + " " + crypto);
-    saveData();
+    wallet[crypto] += amount;
+    history.unshift("➕ " + user + " añadió " + amount + " " + crypto);
+    save();
   }
 }
 
 function removeMoney() {
-  const amount = Number(document.getElementById("amount").value);
   const crypto = document.getElementById("crypto").value;
+  const amount = Number(document.getElementById("amount").value);
 
   if (amount > 0) {
-    balance -= amount;
-    history.unshift("➖ " + currentUser + " quitó " + amount + " " + crypto);
-    saveData();
+    wallet[crypto] -= amount;
+    history.unshift("➖ " + user + " quitó " + amount + " " + crypto);
+    save();
   }
 }
 
-function saveData() {
-  localStorage.setItem("balance", balance);
+function save() {
+  localStorage.setItem("wallet", JSON.stringify(wallet));
   localStorage.setItem("history", JSON.stringify(history));
   updateUI();
 }
 
 function updateUI() {
-  const balanceEl = document.getElementById("balance");
-  const historyList = document.getElementById("history");
+  document.getElementById("btc").innerText = wallet.BTC;
+  document.getElementById("eth").innerText = wallet.ETH;
+  document.getElementById("usdt").innerText = wallet.USDT;
+  document.getElementById("bnb").innerText = wallet.BNB;
 
-  if (balanceEl) {
-    balanceEl.innerText = "$" + balance;
-  }
+  const list = document.getElementById("history");
+  list.innerHTML = "";
 
-  if (historyList) {
-    historyList.innerHTML = "";
-
-    if (history.length === 0) {
-      historyList.innerHTML = "<li>No hay movimientos todavía</li>";
-      return;
-    }
-
-    history.forEach(item => {
-      const li = document.createElement("li");
-      li.innerText = item;
-      historyList.appendChild(li);
-    });
-  }
+  history.forEach(item => {
+    const li = document.createElement("li");
+    li.innerText = item;
+    list.appendChild(li);
+  });
 }
