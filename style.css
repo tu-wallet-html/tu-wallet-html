@@ -1,39 +1,84 @@
 body {
-  font-family: Arial;
-  text-align: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
   background: #0f172a;
   color: white;
 }
 
+.app {
+  max-width: 420px;
+  margin: 30px auto;
+  padding: 15px;
+}
+
 .card {
   background: #1e293b;
+  border-radius: 16px;
   padding: 20px;
-  margin: 20px auto;
-  width: 250px;
-  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.top-card {
+  text-align: center;
+}
+
+.label {
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+#balance {
+  margin: 0;
+  font-size: 40px;
+}
+
+h2 {
+  margin-top: 0;
 }
 
 input {
-  padding: 10px;
-  width: 150px;
-  border-radius: 5px;
+  width: 100%;
+  padding: 12px;
   border: none;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
 }
 
 button {
-  padding: 10px 15px;
-  margin: 5px;
+  flex: 1;
+  padding: 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  color: white;
+  font-size: 16px;
 }
 
-button:first-of-type {
-  background: green;
-  color: white;
+button:first-child {
+  background: #16a34a;
 }
 
-button:last-of-type {
-  background: red;
-  color: white;
+button:last-child {
+  background: #dc2626;
+}
+
+#history {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#history li {
+  background: #334155;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
 }
