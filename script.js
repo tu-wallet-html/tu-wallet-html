@@ -1,11 +1,50 @@
 let balance = 0;
 let history = [];
 
-// ACTUALIZAR BALANCE EN PANTALLA
+// LOGIN
+const FIXED_PIN = "0404";
+
+function login() {
+  const user = document.getElementById("username").value;
+  const pin = document.getElementById("pin").value;
+
+  if (!user) {
+    alert("Introduce usuario");
+    return;
+  }
+
+  if (pin !== FIXED_PIN) {
+    alert("Código incorrecto");
+    return;
+  }
+
+  localStorage.setItem("user", user);
+  showApp();
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  location.reload();
+}
+
+function checkLogin() {
+  const user = localStorage.getItem("user");
+
+  if (user) {
+    showApp();
+  }
+}
+
+function showApp() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
+
+// BALANCE UI
 function updateUI() {
   document.getElementById("balance").innerText = "$" + balance;
 
-  const historyContainer = document.querySelector(".card");
+  const historyContainer = document.getElementById("history");
   historyContainer.innerHTML = "";
 
   history.forEach(item => {
@@ -19,11 +58,15 @@ function updateUI() {
 
     historyContainer.appendChild(div);
   });
+
+  // guardar datos
+  localStorage.setItem("balance", balance);
+  localStorage.setItem("history", JSON.stringify(history));
 }
 
-// AGREGAR DINERO
+// ADD
 function addMoney() {
-  const amount = prompt("¿Cuánto quieres agregar?");
+  const amount = prompt("Cantidad a agregar:");
   const value = parseFloat(amount);
 
   if (isNaN(value) || value <= 0) {
@@ -41,9 +84,9 @@ function addMoney() {
   updateUI();
 }
 
-// RETIRAR DINERO
+// WITHDRAW
 function withdrawMoney() {
-  const amount = prompt("¿Cuánto quieres retirar?");
+  const amount = prompt("Cantidad a retirar:");
   const value = parseFloat(amount);
 
   if (isNaN(value) || value <= 0) {
@@ -66,5 +109,10 @@ function withdrawMoney() {
   updateUI();
 }
 
-// INICIALIZAR
+// CARGAR DATOS
+balance = parseFloat(localStorage.getItem("balance")) || 0;
+history = JSON.parse(localStorage.getItem("history")) || [];
+
+// INIT
+checkLogin();
 updateUI();
