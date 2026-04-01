@@ -1,126 +1,89 @@
 body {
   margin: 0;
-  background: #0b0f1a;
-  font-family: -apple-system, BlinkMacSystemFont, Arial;
+  font-family: 'Arial';
+  background: linear-gradient(180deg, #7c3aed 0%, #4c1d95 50%, #020617 100%);
   color: white;
-  display: flex;
-  justify-content: center;
-}
-
-/* CONTENEDOR */
-.app {
-  width: 360px;
-  margin-top: 20px;
-}
-
-/* TARJETAS */
-.card {
-  background: #121826;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
 }
 
 /* HEADER */
-#userText {
-  font-size: 14px;
-  color: #94a3b8;
-  margin-bottom: 10px;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
 }
 
-/* BALANCE GRANDE */
-.balance-card {
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: gray;
+  border-radius: 50%;
+}
+
+.search {
+  flex: 1;
+  margin: 0 10px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+}
+
+/* BALANCE */
+.balance {
   text-align: center;
+  margin-top: 40px;
 }
 
-.balance-amount {
-  font-size: 32px;
-  font-weight: bold;
+.balance h1 {
+  font-size: 48px;
   margin: 10px 0;
 }
 
-/* CRYPTO LIST */
-.crypto-item {
+.balance button {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px 0;
+}
+
+.actions div {
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
+.card {
+  background: #111827;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.item {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.crypto-item:last-child {
-  border-bottom: none;
-}
-
-.crypto-name {
-  font-weight: 500;
-}
-
-.crypto-value {
-  font-weight: bold;
-}
-
-/* INPUTS */
-input, select {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  margin-top: 10px;
-  background: #1e293b;
-  color: white;
-  font-size: 15px;
-}
-
-/* BOTONES */
-button {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  margin-top: 10px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-/* BOTÓN VERDE */
-button:nth-of-type(1) {
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-}
-
-/* BOTÓN ROJO */
-button:nth-of-type(2) {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
-}
-
-/* LOGOUT */
-button[onclick="logout()"] {
-  background: #334155;
-}
-
-/* HOVER */
-button:hover {
-  transform: scale(1.04);
-}
-
-/* HISTORIAL */
-#history {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#history li {
-  background: #1e293b;
-  padding: 12px;
-  border-radius: 12px;
-  margin-top: 8px;
-  font-size: 14px;
-}
-
-/* EFECTO PRO */
-.card {
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.03);
+  margin-bottom: 15px;
 }
