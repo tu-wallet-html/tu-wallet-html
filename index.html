@@ -6,13 +6,26 @@
 </head>
 <body>
 
+<!-- LOGIN -->
+<div id="loginScreen" class="login">
+  <h2>🔐 Iniciar sesión</h2>
+
+  <input type="text" id="username" placeholder="Usuario">
+  <input type="password" id="pin" placeholder="Código (0404)">
+
+  <button onclick="login()">Entrar</button>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;">
+
   <!-- HEADER -->
   <div class="header">
     <div class="avatar"></div>
-
     <div class="search">🔍</div>
-
-    <div class="icons">📊 💳</div>
+    <div class="icons">
+      <button onclick="logout()">Salir</button>
+    </div>
   </div>
 
   <!-- BALANCE -->
@@ -25,24 +38,16 @@
   <!-- ACTIONS -->
   <div class="actions">
     <div onclick="addMoney()">➕<p>Add</p></div>
-   <div onclick="withdrawMoney()">⬇️<p>Withdraw</p></div>
+    <div onclick="withdrawMoney()">⬇️<p>Withdraw</p></div>
     <div>ℹ️<p>Info</p></div>
     <div>⋯<p>More</p></div>
   </div>
 
-  <!-- CARD -->
-  <div class="card">
-    <div class="item">
-      <span>🏠 House bills</span>
-      <span>-$50</span>
-    </div>
+  <!-- HISTORIAL -->
+  <div class="card" id="history"></div>
 
-    <div class="item">
-      <span>🏋️ Gym</span>
-      <span>-$10</span>
-    </div>
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
