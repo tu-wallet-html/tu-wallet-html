@@ -1,9 +1,10 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = null;
 
-// ADMIN
 const ADMIN_USER = "admin";
 const ADMIN_PIN = "9999";
+
+let lang = "es";
 
 // LOGIN
 function login() {
@@ -20,7 +21,7 @@ function login() {
   const user = users.find(u => u.username === username && u.pin === pin);
 
   if (!user) {
-    alert("Usuario o código incorrecto");
+    alert("Error");
     return;
   }
 
@@ -29,12 +30,10 @@ function login() {
   loadUser();
 }
 
-// CREAR USUARIO
+// CREAR USER
 function createUser() {
-  const username = prompt("Nuevo usuario:");
+  const username = prompt("Usuario:");
   const pin = prompt("Código:");
-
-  if (!username || !pin) return;
 
   users.push({
     username,
@@ -45,8 +44,7 @@ function createUser() {
     verified: "pendiente"
   });
 
-  localStorage.setItem("users", JSON.stringify(users));
-  alert("Usuario creado");
+  save();
 }
 
 // LOGOUT
@@ -60,11 +58,10 @@ function showApp() {
   document.getElementById("app").style.display = "block";
 }
 
-// USER LOAD
+// USER
 function loadUser() {
   renderWallet();
   renderHistory();
-  document.getElementById("verifyStatus").innerText = currentUser.verified;
 }
 
 // ADMIN
@@ -75,18 +72,19 @@ function loadAdmin() {
   list.innerHTML = "";
 
   users.forEach((u, i) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      ${u.username} - ${u.verified}
-      <button onclick="approve(${i})">✔</button>
-      <button onclick="deleteUser(${i})">🗑</button>
+    list.innerHTML += `
+      ${u.username} (${u.wallet.USDT})
+      <button onclick="addBalance(${i})">+ saldo</button>
+      <button onclick="deleteUser(${i})">❌</button>
     `;
-    list.appendChild(div);
   });
 }
 
-function approve(i) {
-  users[i].verified = "verificado";
+function addBalance(i) {
+  const amount = parseFloat(prompt("Cantidad:"));
+  if (isNaN(amount)) return;
+
+  users[i].wallet.USDT += amount;
   save();
   loadAdmin();
 }
@@ -105,10 +103,13 @@ function renderWallet() {
   let total = 0;
 
   for (let coin in currentUser.wallet) {
-    let value = currentUser.wallet[coin];
-    total += value;
+    total += currentUser.wallet[coin];
 
-    div.innerHTML += `<div class="coin">${coin}: ${value}</div>`;
+    div.innerHTML += `
+      <div class="coin">
+        ${coin} : ${currentUser.wallet[coin]}
+      </div>
+    `;
   }
 
   document.getElementById("total").innerText = "$" + total;
@@ -124,51 +125,42 @@ function renderHistory() {
   });
 }
 
-// ACTIONS
-function addMoney() {
-  const coin = prompt("Moneda BTC/ETH/USDT/BNB:");
-  const amount = parseFloat(prompt("Cantidad:"));
-
-  if (!coin || isNaN(amount)) return;
-
-  currentUser.wallet[coin] += amount;
-  currentUser.history.unshift(`+ ${amount} ${coin}`);
-  save();
-  loadUser();
+// BANCO
+function openBank() {
+  document.getElementById("app").style.display = "none";
+  document.getElementById("bankScreen").style.display = "block";
 }
 
-function withdrawMoney() {
-  const coin = prompt("Moneda:");
-  const amount = parseFloat(prompt("Cantidad:"));
+function closeBank() {
+  document.getElementById("bankScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
+}
 
-  if (!coin || isNaN(amount)) return;
+function withdrawFromBank() {
+  const amount = parseFloat(document.getElementById("withdrawAmount").value);
 
-  if (currentUser.wallet[coin] < amount) {
+  if (isNaN(amount) || amount <= 0) return;
+
+  if (currentUser.wallet.USDT < amount) {
     alert("Saldo insuficiente");
     return;
   }
 
-  currentUser.wallet[coin] -= amount;
-  currentUser.history.unshift(`- ${amount} ${coin}`);
+  currentUser.wallet.USDT -= amount;
+  currentUser.history.unshift("Retiro banco: " + amount);
+
   save();
   loadUser();
+
+  alert("Retiro enviado");
 }
 
-// BANK
-function saveBank() {
-  currentUser.bank = {
-    name: document.getElementById("bankName").value,
-    iban: document.getElementById("iban").value
-  };
-  save();
-  alert("Banco guardado");
-}
+// IDIOMA
+function toggleLang() {
+  lang = lang === "es" ? "en" : "es";
 
-// VERIFICACION
-function submitVerification() {
-  currentUser.verified = "pendiente";
-  save();
-  loadUser();
+  document.getElementById("title").innerText =
+    lang === "es" ? "Iniciar sesión" : "Login";
 }
 
 // SAVE
