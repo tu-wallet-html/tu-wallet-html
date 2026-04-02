@@ -1,119 +1,70 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: linear-gradient(180deg, #7c3aed 0%, #4c1d95 50%, #020617 100%);
+  background: linear-gradient(180deg, #7c3aed, #020617);
   color: white;
+}
+
+/* LOGO */
+.logo {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.logo-small {
+  width: 120px;
 }
 
 /* LOGIN */
 .login {
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   padding: 30px;
-  gap: 15px;
+  gap: 10px;
 }
 
-.login input {
-  padding: 15px;
+input {
+  padding: 10px;
   border-radius: 10px;
   border: none;
-  background: rgba(255,255,255,0.1);
-  color: white;
 }
 
-.login button {
-  padding: 15px;
+button {
+  padding: 10px;
   border-radius: 10px;
   border: none;
   background: #7c3aed;
   color: white;
-  font-weight: bold;
 }
 
 /* HEADER */
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 20px;
-}
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  background: gray;
-  border-radius: 50%;
-}
-
-.search {
-  flex: 1;
-  margin: 0 10px;
-  height: 40px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.1);
-  display: flex;
-  align-items: center;
-  padding-left: 15px;
-}
-
-.icons button {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  padding: 8px 12px;
-  border-radius: 10px;
-  color: white;
 }
 
 /* BALANCE */
 .balance {
   text-align: center;
-  margin-top: 40px;
 }
 
-.balance h1 {
-  font-size: 48px;
-  margin: 10px 0;
+/* WALLET */
+#wallet {
+  padding: 20px;
 }
 
-.balance button {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  color: white;
-}
-
-/* ACTIONS */
-.actions {
+.coin {
   display: flex;
-  justify-content: space-around;
-  margin: 40px 0;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-.actions div {
-  text-align: center;
-  background: rgba(255,255,255,0.1);
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* CARD */
+/* CARDS */
 .card {
   background: #111827;
   margin: 20px;
   padding: 20px;
-  border-radius: 20px;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  border-radius: 15px;
 }
