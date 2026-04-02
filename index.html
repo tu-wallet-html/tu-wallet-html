@@ -9,10 +9,10 @@
 <!-- LOGIN -->
 <div id="loginScreen" class="login">
   <img src="my wallet logo.PNG.PNG" class="logo">
-  <h2>Iniciar sesión</h2>
+  <h2 id="title">Iniciar sesión</h2>
 
   <input type="text" id="username" placeholder="Usuario">
-  <input type="password" id="pin" placeholder="Código de acceso">
+  <input type="password" id="pin" placeholder="Código">
 
   <button onclick="login()">Entrar</button>
   <button onclick="createUser()">Crear usuario</button>
@@ -21,51 +21,47 @@
 <!-- APP -->
 <div id="app" style="display:none;">
 
-  <!-- HEADER -->
   <div class="header">
     <img src="my wallet logo.PNG.PNG" class="logo-small">
-    <button onclick="logout()">Salir</button>
+    <div>
+      <button onclick="toggleLang()">🌍</button>
+      <button onclick="logout()">Salir</button>
+    </div>
   </div>
 
-  <!-- BALANCE -->
   <div class="balance">
     <h1 id="total">$0</h1>
   </div>
 
-  <!-- WALLET -->
   <div id="wallet"></div>
 
-  <!-- ACTIONS -->
   <div class="actions">
-    <button onclick="addMoney()">Agregar</button>
-    <button onclick="withdrawMoney()">Retirar</button>
+    <button onclick="openBank()">🏦 Banco</button>
   </div>
 
-  <!-- BANCO -->
-  <div class="card">
-    <h3>Banco</h3>
-    <input id="bankName" placeholder="Banco">
-    <input id="iban" placeholder="IBAN">
-    <button onclick="saveBank()">Guardar</button>
-  </div>
-
-  <!-- VERIFICACION -->
-  <div class="card">
-    <h3>Verificación</h3>
-    <input type="file" id="dni">
-    <input type="file" id="selfie">
-    <button onclick="submitVerification()">Enviar</button>
-    <p id="verifyStatus"></p>
-  </div>
-
-  <!-- HISTORIAL -->
   <div class="card" id="history"></div>
 
-  <!-- ADMIN PANEL -->
+  <!-- ADMIN -->
   <div id="adminPanel" class="card" style="display:none;">
     <h3>Admin Panel</h3>
     <div id="usersList"></div>
   </div>
+
+</div>
+
+<!-- BANCO -->
+<div id="bankScreen" style="display:none;" class="card">
+
+  <h2>Banco</h2>
+
+  <input id="bankName" placeholder="Banco">
+  <input id="iban" placeholder="IBAN">
+  <input id="dni" placeholder="DNI">
+
+  <input id="withdrawAmount" placeholder="Cantidad">
+
+  <button class="blue" onclick="withdrawFromBank()">Retirar</button>
+  <button onclick="closeBank()">Volver</button>
 
 </div>
 
