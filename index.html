@@ -1,50 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mi Wallet</title>
+  <title>My Wallet</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- LOGIN -->
 <div id="loginScreen" class="login">
-  <h2>🔐 Iniciar sesión</h2>
+  <img src="my wallet logo.PNG" class="logo">
+  <h2>Iniciar sesión</h2>
 
   <input type="text" id="username" placeholder="Usuario">
-  <input type="password" id="pin" placeholder="Código (0404)">
+  <input type="password" id="pin" placeholder="Código de acceso">
 
   <button onclick="login()">Entrar</button>
+
+  <button onclick="createUser()">Crear usuario</button>
 </div>
 
 <!-- APP -->
 <div id="app" style="display:none;">
 
-  <!-- HEADER -->
   <div class="header">
-    <div class="avatar"></div>
-    <div class="search">🔍</div>
-    <div class="icons">
-      <button onclick="logout()">Salir</button>
-    </div>
+    <img src="my wallet logo.PNG" class="logo-small">
+    <button onclick="logout()">Salir</button>
   </div>
 
   <!-- BALANCE -->
   <div class="balance">
-    <p>Balance</p>
-    <h1 id="balance">$0</h1>
-    <button>Accounts</button>
+    <h1 id="total">$0</h1>
   </div>
+
+  <!-- WALLET -->
+  <div id="wallet"></div>
 
   <!-- ACTIONS -->
   <div class="actions">
-    <div onclick="addMoney()">➕<p>Add</p></div>
-    <div onclick="withdrawMoney()">⬇️<p>Withdraw</p></div>
-    <div>ℹ️<p>Info</p></div>
-    <div>⋯<p>More</p></div>
+    <button onclick="addMoney()">Agregar</button>
+    <button onclick="withdrawMoney()">Retirar</button>
+  </div>
+
+  <!-- BANCO -->
+  <div class="card">
+    <h3>Banco</h3>
+    <input id="bankName" placeholder="Banco">
+    <input id="iban" placeholder="IBAN">
+    <button onclick="saveBank()">Guardar</button>
+  </div>
+
+  <!-- VERIFICACION -->
+  <div class="card">
+    <h3>Verificación</h3>
+    <input type="file" id="dni">
+    <input type="file" id="selfie">
+    <button onclick="submitVerification()">Enviar</button>
+    <p id="verifyStatus"></p>
   </div>
 
   <!-- HISTORIAL -->
   <div class="card" id="history"></div>
+
+  <!-- ADMIN PANEL -->
+  <div id="adminPanel" class="card" style="display:none;">
+    <h3>Admin Panel</h3>
+    <div id="usersList"></div>
+  </div>
 
 </div>
 
