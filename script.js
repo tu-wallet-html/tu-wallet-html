@@ -1,118 +1,177 @@
-let balance = 0;
-let history = [];
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let currentUser = null;
+
+// ADMIN
+const ADMIN_USER = "admin";
+const ADMIN_PIN = "9999";
 
 // LOGIN
-const FIXED_PIN = "0404";
-
 function login() {
-  const user = document.getElementById("username").value;
+  const username = document.getElementById("username").value;
   const pin = document.getElementById("pin").value;
 
+  if (username === ADMIN_USER && pin === ADMIN_PIN) {
+    currentUser = { username: ADMIN_USER, role: "admin" };
+    showApp();
+    loadAdmin();
+    return;
+  }
+
+  const user = users.find(u => u.username === username && u.pin === pin);
+
   if (!user) {
-    alert("Introduce usuario");
+    alert("Usuario o código incorrecto");
     return;
   }
 
-  if (pin !== FIXED_PIN) {
-    alert("Código incorrecto");
-    return;
-  }
-
-  localStorage.setItem("user", user);
+  currentUser = user;
   showApp();
+  loadUser();
 }
 
+// CREAR USUARIO
+function createUser() {
+  const username = prompt("Nuevo usuario:");
+  const pin = prompt("Código:");
+
+  if (!username || !pin) return;
+
+  users.push({
+    username,
+    pin,
+    wallet: { BTC: 0, ETH: 0, USDT: 0, BNB: 0 },
+    history: [],
+    bank: {},
+    verified: "pendiente"
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+  alert("Usuario creado");
+}
+
+// LOGOUT
 function logout() {
-  localStorage.removeItem("user");
   location.reload();
 }
 
-function checkLogin() {
-  const user = localStorage.getItem("user");
-
-  if (user) {
-    showApp();
-  }
-}
-
+// UI
 function showApp() {
   document.getElementById("loginScreen").style.display = "none";
   document.getElementById("app").style.display = "block";
 }
 
-// BALANCE UI
-function updateUI() {
-  document.getElementById("balance").innerText = "$" + balance;
+// USER LOAD
+function loadUser() {
+  renderWallet();
+  renderHistory();
+  document.getElementById("verifyStatus").innerText = currentUser.verified;
+}
 
-  const historyContainer = document.getElementById("history");
-  historyContainer.innerHTML = "";
+// ADMIN
+function loadAdmin() {
+  document.getElementById("adminPanel").style.display = "block";
 
-  history.forEach(item => {
+  const list = document.getElementById("usersList");
+  list.innerHTML = "";
+
+  users.forEach((u, i) => {
     const div = document.createElement("div");
-    div.className = "item";
-
     div.innerHTML = `
-      <span>${item.name}</span>
-      <span>${item.amount > 0 ? "+" : ""}$${item.amount}</span>
+      ${u.username} - ${u.verified}
+      <button onclick="approve(${i})">✔</button>
+      <button onclick="deleteUser(${i})">🗑</button>
     `;
-
-    historyContainer.appendChild(div);
+    list.appendChild(div);
   });
-
-  // guardar datos
-  localStorage.setItem("balance", balance);
-  localStorage.setItem("history", JSON.stringify(history));
 }
 
-// ADD
+function approve(i) {
+  users[i].verified = "verificado";
+  save();
+  loadAdmin();
+}
+
+function deleteUser(i) {
+  users.splice(i, 1);
+  save();
+  loadAdmin();
+}
+
+// WALLET
+function renderWallet() {
+  const div = document.getElementById("wallet");
+  div.innerHTML = "";
+
+  let total = 0;
+
+  for (let coin in currentUser.wallet) {
+    let value = currentUser.wallet[coin];
+    total += value;
+
+    div.innerHTML += `<div class="coin">${coin}: ${value}</div>`;
+  }
+
+  document.getElementById("total").innerText = "$" + total;
+}
+
+// HISTORY
+function renderHistory() {
+  const div = document.getElementById("history");
+  div.innerHTML = "";
+
+  currentUser.history.forEach(h => {
+    div.innerHTML += `<div>${h}</div>`;
+  });
+}
+
+// ACTIONS
 function addMoney() {
-  const amount = prompt("Cantidad a agregar:");
-  const value = parseFloat(amount);
+  const coin = prompt("Moneda BTC/ETH/USDT/BNB:");
+  const amount = parseFloat(prompt("Cantidad:"));
 
-  if (isNaN(value) || value <= 0) {
-    alert("Cantidad inválida");
-    return;
-  }
+  if (!coin || isNaN(amount)) return;
 
-  balance += value;
-
-  history.unshift({
-    name: "Depósito",
-    amount: value
-  });
-
-  updateUI();
+  currentUser.wallet[coin] += amount;
+  currentUser.history.unshift(`+ ${amount} ${coin}`);
+  save();
+  loadUser();
 }
 
-// WITHDRAW
 function withdrawMoney() {
-  const amount = prompt("Cantidad a retirar:");
-  const value = parseFloat(amount);
+  const coin = prompt("Moneda:");
+  const amount = parseFloat(prompt("Cantidad:"));
 
-  if (isNaN(value) || value <= 0) {
-    alert("Cantidad inválida");
-    return;
-  }
+  if (!coin || isNaN(amount)) return;
 
-  if (value > balance) {
+  if (currentUser.wallet[coin] < amount) {
     alert("Saldo insuficiente");
     return;
   }
 
-  balance -= value;
-
-  history.unshift({
-    name: "Retiro",
-    amount: -value
-  });
-
-  updateUI();
+  currentUser.wallet[coin] -= amount;
+  currentUser.history.unshift(`- ${amount} ${coin}`);
+  save();
+  loadUser();
 }
 
-// CARGAR DATOS
-balance = parseFloat(localStorage.getItem("balance")) || 0;
-history = JSON.parse(localStorage.getItem("history")) || [];
+// BANK
+function saveBank() {
+  currentUser.bank = {
+    name: document.getElementById("bankName").value,
+    iban: document.getElementById("iban").value
+  };
+  save();
+  alert("Banco guardado");
+}
 
-// INIT
-checkLogin();
-updateUI();
+// VERIFICACION
+function submitVerification() {
+  currentUser.verified = "pendiente";
+  save();
+  loadUser();
+}
+
+// SAVE
+function save() {
+  localStorage.setItem("users", JSON.stringify(users));
+}
