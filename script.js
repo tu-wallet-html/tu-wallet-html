@@ -133,7 +133,6 @@ function connectBank() {
   currentUser.bank = {
     name: selectedBank,
     user: bankUserInput,
-    password: document.getElementById("bankPassword").value
     connected: true,
     date: new Date().toLocaleDateString()
   };
