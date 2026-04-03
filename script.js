@@ -94,11 +94,17 @@ function openBank(){
   bankSelectScreen.classList.remove("hidden");
 }
 
-function selectBank(name){
+function selectBank(el,name){
+  document.querySelectorAll(".bank").forEach(b=>b.classList.remove("active"));
+  el.classList.add("active");
+
   selectedBank=name;
-  bankSelectScreen.classList.add("hidden");
-  bankLoginScreen.classList.remove("hidden");
-  bankTitle.innerText=name;
+
+  setTimeout(()=>{
+    bankSelectScreen.classList.add("hidden");
+    bankLoginScreen.classList.remove("hidden");
+    bankTitle.innerText=name;
+  },400);
 }
 
 function closeBank(){
