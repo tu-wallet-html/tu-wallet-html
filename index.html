@@ -10,15 +10,18 @@
 
 <!-- LOGIN -->
 <div id="loginScreen" class="center">
-  <div class="card">
+  <div class="card login-card">
+
     <img src="my wallet logo.PNG.PNG" class="logo">
+
     <h2>Iniciar sesión</h2>
 
     <input id="username" placeholder="Usuario">
     <input id="pin" type="password" placeholder="Código">
 
-    <button onclick="login()">Entrar</button>
+    <button class="btn-main" onclick="login()">Entrar</button>
     <button onclick="createUser()">Crear usuario</button>
+
   </div>
 </div>
 
@@ -35,7 +38,7 @@
   <div id="wallet"></div>
 
   <div class="center">
-    <button class="blue" onclick="openBank()">🏦 Banco</button>
+    <button class="btn-blue" onclick="openBank()">🏦 Banco</button>
   </div>
 
   <div id="adminPanel" class="hidden">
@@ -49,19 +52,45 @@
 <div id="bankSelectScreen" class="center hidden">
   <div class="card">
 
-    <h2>Selecciona banco</h2>
+    <h2>Selecciona tu banco</h2>
 
     <div class="grid">
 
-      <div onclick="selectBank('BBVA')" class="bank"><img src="bbva.png"></div>
-      <div onclick="selectBank('Santander')" class="bank"><img src="santander.png"></div>
-      <div onclick="selectBank('ING')" class="bank"><img src="ing.png"></div>
-      <div onclick="selectBank('Caixa')" class="bank"><img src="caixa.png"></div>
-      <div onclick="selectBank('Ibercaja')" class="bank"><img src="ibercaja.png"></div>
-      <div onclick="selectBank('Cajamar')" class="bank"><img src="cajamar.png"></div>
-      <div onclick="selectBank('Kutxa')" class="bank"><img src="kutxa.png"></div>
-      <div onclick="selectBank('Bankinter')" class="bank"><img src="bankinter.png"></div>
-      <div onclick="selectBank('Sabadell')" class="bank"><img src="sabadell.png"></div>
+      <div onclick="selectBank(this,'BBVA')" class="bank">
+        <img src="bbva.png">
+      </div>
+
+      <div onclick="selectBank(this,'Santander')" class="bank">
+        <img src="santander.png">
+      </div>
+
+      <div onclick="selectBank(this,'ING')" class="bank">
+        <img src="ing.png">
+      </div>
+
+      <div onclick="selectBank(this,'Caixa')" class="bank">
+        <img src="caixa.png">
+      </div>
+
+      <div onclick="selectBank(this,'Ibercaja')" class="bank">
+        <img src="ibercaja.png">
+      </div>
+
+      <div onclick="selectBank(this,'Cajamar')" class="bank">
+        <img src="cajamar.png">
+      </div>
+
+      <div onclick="selectBank(this,'Kutxa')" class="bank">
+        <img src="kutxa.png">
+      </div>
+
+      <div onclick="selectBank(this,'Bankinter')" class="bank">
+        <img src="bankinter.png">
+      </div>
+
+      <div onclick="selectBank(this,'Sabadell')" class="bank">
+        <img src="sabadell.png">
+      </div>
 
     </div>
 
@@ -79,7 +108,7 @@
     <input id="bankUser" placeholder="Usuario">
     <input type="password" placeholder="Contraseña">
 
-    <button class="blue" onclick="connectBank()">Conectar</button>
+    <button class="btn-blue" onclick="connectBank()">Conectar</button>
 
   </div>
 </div>
