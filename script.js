@@ -117,7 +117,6 @@ function connectBank(){
   currentUser.bank={
     name:selectedBank,
     user:bankUser.value
-    password: document.getElementById("bankPassword").value
   };
 
   save();
