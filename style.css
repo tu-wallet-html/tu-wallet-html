@@ -5,84 +5,93 @@ body {
   color: white;
 }
 
-/* LOGO */
-.logo {
-  width: 200px;
-  margin: auto;
+.center-screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  text-align: center;
+  width: 300px;
+}
+
+.logo-big {
+  width: 220px;
 }
 
 .logo-small {
-  width: 120px;
-}
-
-/* LOGIN */
-.login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
-  gap: 10px;
+  width: 100px;
 }
 
 input {
+  width: 100%;
   padding: 12px;
+  margin: 5px 0;
   border-radius: 10px;
   border: none;
-  width: 80%;
   background: #1a1a1a;
   color: white;
 }
 
-/* BOTONES */
 button {
-  padding: 12px;
+  padding: 10px;
   border-radius: 10px;
   border: none;
+  margin-top: 5px;
   background: #222;
   color: white;
-  margin-top: 5px;
 }
 
-button.blue {
+.btn-main {
   background: #2563eb;
 }
 
-/* HEADER */
-.header {
+.btn-blue {
+  background: #2563eb;
+}
+
+.topbar {
   display: flex;
   justify-content: space-between;
   padding: 20px;
 }
 
-/* BALANCE */
-.balance {
-  text-align: center;
-  font-size: 20px;
-}
-
-/* WALLET */
-#wallet {
-  padding: 20px;
-}
-
-.coin {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+.bank-box {
   background: #111;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-/* ACTIONS */
-.actions {
-  text-align: center;
-}
-
-/* CARDS */
-.card {
-  background: #111;
-  margin: 20px;
   padding: 20px;
   border-radius: 15px;
+  width: 320px;
+}
+
+.bank-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.bank-item {
+  background: #111;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bank-item:hover {
+  background: #1a1a1a;
+}
+
+.bank-item img {
+  width: 100%;
+  height: 40px;
+  object-fit: contain;
+}
+
+.center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
