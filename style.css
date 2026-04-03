@@ -1,47 +1,64 @@
 body {
   margin: 0;
   font-family: Arial;
-  background: #0b0b0b;
+  background: #000;
   color: white;
 }
 
-.center-screen {
-  height: 100vh;
+/* CENTRADO */
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }
 
-.login-box {
+/* CARD */
+.card {
+  background: #111;
+  padding: 30px;
+  border-radius: 25px;
+  width: 350px;
   text-align: center;
-  width: 300px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.6);
 }
 
-.logo-big {
-  width: 220px;
+/* LOGIN */
+.login-card {
+  animation: fadeIn 0.5s ease;
+}
+
+/* LOGOS */
+.logo {
+  width: 200px;
+  margin-bottom: 15px;
 }
 
 .logo-small {
   width: 100px;
 }
 
+/* INPUT */
 input {
   width: 100%;
-  padding: 12px;
-  margin: 5px 0;
-  border-radius: 10px;
+  padding: 14px;
+  margin: 8px 0;
+  border-radius: 12px;
   border: none;
   background: #1a1a1a;
   color: white;
+  font-size: 15px;
 }
 
+/* BOTONES */
 button {
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
   border: none;
-  margin-top: 5px;
+  margin-top: 8px;
   background: #222;
   color: white;
+  cursor: pointer;
 }
 
 .btn-main {
@@ -52,46 +69,58 @@ button {
   background: #2563eb;
 }
 
-.topbar {
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+/* BANK ITEM */
+.bank {
+  background: #1a1a1a;
+  height: 70px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.bank:hover {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+/* ACTIVO */
+.bank.active {
+  border: 2px solid #2563eb;
+  box-shadow: 0 0 10px #2563eb;
+}
+
+/* LOGO FIX */
+.bank img {
+  max-width: 80px;
+  max-height: 35px;
+  object-fit: contain;
+}
+
+/* TOP */
+.top {
   display: flex;
   justify-content: space-between;
   padding: 20px;
 }
 
-.bank-box {
-  background: #111;
-  padding: 20px;
-  border-radius: 15px;
-  width: 320px;
+/* ANIMACIONES */
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1; transform:translateY(0);}
 }
 
-.bank-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.bank-item {
-  background: #111;
-  padding: 12px;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.bank-item:hover {
-  background: #1a1a1a;
-}
-
-.bank-item img {
-  width: 100%;
-  height: 40px;
-  object-fit: contain;
-}
-
-.center {
-  text-align: center;
-}
-
+/* HIDDEN */
 .hidden {
   display: none;
 }
