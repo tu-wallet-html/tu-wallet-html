@@ -34,8 +34,7 @@ function createUser() {
   users.push({
     username: u,
     pin: p,
-    wallet: { USDT: 0 },
-    history: []
+    wallet: { USDT: 0 }
   });
 
   save();
@@ -59,9 +58,7 @@ function loadAdmin() {
         <br>
         Banco: ${u.bank?.name || "-"}
         <br>
-        IBAN: ${u.bank?.iban || "-"}
-        <br>
-        DNI: ${u.bank?.dni || "-"}
+        Usuario banco: ${u.bank?.user || "-"}
         <br><br>
         <button onclick="addBalance(${i})">+ saldo</button>
       </div><hr>
@@ -113,9 +110,7 @@ function closeBank(){
 function connectBank(){
   currentUser.bank={
     name:selectedBank,
-    user:bankUser.value,
-    iban:iban.value,
-    dni:dni.value
+    user:bankUser.value
   };
 
   save();
