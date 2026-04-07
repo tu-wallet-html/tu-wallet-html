@@ -6,7 +6,14 @@ const ADMIN_PIN = "9999";
 
 let selectedBank = "";
 
-// LOGIN (ARREGLADO)
+// PRECIOS
+const prices = {
+  BTC: 60000,
+  ETH: 3000,
+  USDT: 1
+};
+
+// LOGIN
 function login() {
   let u = document.getElementById("username").value;
   let p = document.getElementById("pin").value;
@@ -19,135 +26,167 @@ function login() {
   }
 
   let user = users.find(x => x.username === u && x.pin === p);
-
-  if (!user) {
-    alert("Usuario o código incorrecto");
-    return;
-  }
+  if (!user) return alert("Error");
 
   currentUser = user;
   showApp();
   loadUser();
 }
 
-// CREAR USUARIO
+// CREAR
 function createUser() {
   let u = prompt("Usuario:");
   let p = prompt("Código:");
 
-  if (!u || !p) return;
-
   users.push({
     username: u,
     pin: p,
-    wallet: { USDT: 0 },
+    wallet: { BTC:0, ETH:0, USDT:0 },
     bank: null
   });
 
   save();
-  alert("Usuario creado");
 }
 
-// MOSTRAR APP
+// APP
 function showApp() {
   document.getElementById("loginScreen").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
 }
 
-// ADMIN PANEL
+// 👑 ADMIN PRO
 function loadAdmin() {
-  document.getElementById("adminPanel").classList.remove("hidden");
   let list = document.getElementById("usersList");
+  document.getElementById("adminPanel").classList.remove("hidden");
   list.innerHTML = "";
 
-  users.forEach((u, i) => {
+  users.forEach((u,i)=>{
     list.innerHTML += `
-      <div>
-        <b>${u.username}</b> - ${u.wallet.USDT}
-        <br>
-        Banco: ${u.bank?.name || "-"}
-        <br>
-        Usuario banco: ${u.bank?.user || "-"}
+      <div style="background:#111;padding:10px;margin:10px;border-radius:10px">
+        <b>${u.username}</b>
+        <br>Saldo: ${u.wallet.USDT} USDT
+        <br>Banco: ${u.bank?.name || "-"}
+        <br>User banco: ${u.bank?.user || "-"}
         <br><br>
         <button onclick="addBalance(${i})">+ saldo</button>
+        <button onclick="deleteUser(${i})">❌ borrar</button>
       </div>
-      <hr>
     `;
   });
 }
 
-function addBalance(i) {
-  let a = parseFloat(prompt("Cantidad"));
-
-  if (!isNaN(a)) {
+function addBalance(i){
+  let a = parseFloat(prompt("€ a añadir"));
+  if(!isNaN(a)){
     users[i].wallet.USDT += a;
     save();
     loadAdmin();
   }
 }
 
-// USUARIO
-function loadUser() {
-  let walletDiv = document.getElementById("wallet");
-  walletDiv.innerHTML = "";
+function deleteUser(i){
+  users.splice(i,1);
+  save();
+  loadAdmin();
+}
 
-  let total = 0;
+// WALLET
+function loadUser(){
+  let div = document.getElementById("wallet");
+  div.innerHTML="";
+  let total=0;
 
-  for (let c in currentUser.wallet) {
-    total += currentUser.wallet[c];
-    walletDiv.innerHTML += `<div>${c}: ${currentUser.wallet[c]}</div>`;
+  for(let c in currentUser.wallet){
+    total += currentUser.wallet[c]*prices[c];
+    div.innerHTML += `<div>${c}: ${currentUser.wallet[c]}</div>`;
   }
 
-  document.getElementById("total").innerText = "$" + total;
+  document.getElementById("total").innerText = "€"+total.toFixed(2);
+}
+
+// 💸 BUY
+function buy(){
+  let coin = prompt("BTC / ETH / USDT");
+  let eur = parseFloat(prompt("€ a invertir"));
+
+  if(!prices[coin]) return alert("Moneda inválida");
+
+  let amount = eur / prices[coin];
+
+  currentUser.wallet[coin] += amount;
+
+  save();
+  loadUser();
+}
+
+// 💸 SELL
+function sell(){
+  let coin = prompt("BTC / ETH / USDT");
+  let amount = parseFloat(prompt("Cantidad"));
+
+  if(currentUser.wallet[coin] < amount) return alert("No tienes suficiente");
+
+  currentUser.wallet[coin] -= amount;
+
+  save();
+  loadUser();
+}
+
+// 💸 TRANSFER
+function transfer(){
+  let to = prompt("Usuario destino");
+  let amount = parseFloat(prompt("Cantidad USDT"));
+
+  let user = users.find(u=>u.username===to);
+
+  if(!user) return alert("Usuario no existe");
+
+  if(currentUser.wallet.USDT < amount) return alert("Saldo insuficiente");
+
+  currentUser.wallet.USDT -= amount;
+  user.wallet.USDT += amount;
+
+  save();
+  loadUser();
 }
 
 // BANCO
-function openBank() {
+function openBank(){
   document.getElementById("app").classList.add("hidden");
   document.getElementById("bankSelectScreen").classList.remove("hidden");
 }
 
-function selectBank(el, name) {
-  document.querySelectorAll(".bank").forEach(b => b.classList.remove("active"));
-  el.classList.add("active");
+function selectBank(el,name){
+  selectedBank=name;
 
-  selectedBank = name;
-
-  setTimeout(() => {
+  setTimeout(()=>{
     document.getElementById("bankSelectScreen").classList.add("hidden");
     document.getElementById("bankLoginScreen").classList.remove("hidden");
-    document.getElementById("bankTitle").innerText = name;
-  }, 300);
+    document.getElementById("bankTitle").innerText=name;
+  },300);
 }
 
-function closeBank() {
-  document.getElementById("bankSelectScreen").classList.add("hidden");
+function connectBank(){
+  currentUser.bank={
+    name:selectedBank,
+    user:document.getElementById("bankUser").value
+  };
+
+  save();
+  closeBank();
+}
+
+function closeBank(){
   document.getElementById("bankLoginScreen").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
 }
 
-// CONECTAR BANCO (SEGURO)
-function connectBank() {
-  let bankUserInput = document.getElementById("bankUser").value;
-
-  currentUser.bank = {
-    name: selectedBank,
-    user: bankUserInput,
-    connected: true,
-    date: new Date().toLocaleDateString()
-  };
-
-  save();
-  alert("Banco vinculado correctamente");
-  closeBank();
-}
-
 // LOGOUT
-function logout() {
+function logout(){
   location.reload();
 }
 
-// GUARDAR
-function save() {
-  localStorage.setItem("users", JSON.stringify(users));
+// SAVE
+function save(){
+  localStorage.setItem("users",JSON.stringify(users));
 }
