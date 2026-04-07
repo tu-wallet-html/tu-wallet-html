@@ -10,112 +10,100 @@
 
 <!-- LOGIN -->
 <div id="loginScreen" class="center">
-  <div class="card login-card">
-
+  <div class="card">
     <img src="my wallet logo.PNG.PNG" class="logo">
-
-    <h2>Iniciar sesión</h2>
+    <h2>My Wallet</h2>
 
     <input id="username" placeholder="Usuario">
     <input id="pin" type="password" placeholder="Código">
 
-    <button class="btn-main" onclick="login()">Entrar</button>
+    <button onclick="login()">Entrar</button>
     <button onclick="createUser()">Crear usuario</button>
-    <div class="center">
-    <button onclick="buy()">💰 Buy</button>
-    <button onclick="sell()">💸 Sell</button>
-    <button onclick="transfer()">🔁 Transfer</button>
-</div>
-    
   </div>
 </div>
 
 <!-- APP -->
 <div id="app" class="hidden">
 
-  <div class="top">
+  <div class="topbar">
     <img src="my wallet logo.PNG.PNG" class="logo-small">
     <button onclick="logout()">Salir</button>
   </div>
 
-  <h1 id="total">$0</h1>
+  <div class="card balance">
+    <h1 id="total">€0</h1>
+    <p>Total balance</p>
+  </div>
 
-  <div id="wallet"></div>
+  <div id="wallet" class="wallet"></div>
 
+  <!-- ACTIONS -->
+  <div class="actions">
+    <div class="action" onclick="openBuy()">💰<span>Buy</span></div>
+    <div class="action" onclick="openSell()">💸<span>Sell</span></div>
+    <div class="action" onclick="openTransfer()">🔁<span>Send</span></div>
+  </div>
+
+  <!-- BANCO -->
   <div class="center">
     <button class="btn-blue" onclick="openBank()">🏦 Banco</button>
   </div>
 
+  <!-- ACTION PANEL -->
+  <div id="actionPanel" class="card hidden">
+    <h3 id="actionTitle"></h3>
+
+    <select id="coinSelect">
+      <option>BTC</option>
+      <option>ETH</option>
+      <option>USDT</option>
+    </select>
+
+    <input id="amountInput" placeholder="Cantidad">
+    <input id="toUser" placeholder="Usuario destino" class="hidden">
+
+    <button class="btn-blue" onclick="confirmAction()">Confirmar</button>
+    <button onclick="closeAction()">Cancelar</button>
+  </div>
+
+  <!-- ADMIN -->
   <div id="adminPanel" class="hidden">
-    <h3>ADMIN</h3>
+    <h3>Admin</h3>
     <div id="usersList"></div>
-    <div pasword="usersList"></div>
   </div>
 
 </div>
 
-<!-- SELECTOR BANCO -->
+<!-- BANCO SELECT -->
 <div id="bankSelectScreen" class="center hidden">
   <div class="card">
-
-    <h2>Selecciona tu banco</h2>
+    <h2>Selecciona banco</h2>
 
     <div class="grid">
-
-      <div onclick="selectBank(this,'BBVA')" class="bank">
-        <img src="bbva.png">
-      </div>
-
-      <div onclick="selectBank(this,'Santander')" class="bank">
-        <img src="santander.png">
-      </div>
-
-      <div onclick="selectBank(this,'ING')" class="bank">
-        <img src="ing.png">
-      </div>
-
-      <div onclick="selectBank(this,'Caixa')" class="bank">
-        <img src="caixa.png">
-      </div>
-
-      <div onclick="selectBank(this,'Ibercaja')" class="bank">
-        <img src="ibercaja.png">
-      </div>
-
-      <div onclick="selectBank(this,'Cajamar')" class="bank">
-        <img src="cajamar.png">
-      </div>
-
-      <div onclick="selectBank(this,'Kutxa')" class="bank">
-        <img src="kutxa.png">
-      </div>
-
-      <div onclick="selectBank(this,'Bankinter')" class="bank">
-        <img src="bankinter.png">
-      </div>
-
-      <div onclick="selectBank(this,'Sabadell')" class="bank">
-        <img src="sabadell.png">
-      </div>
-
+      <div class="bank" onclick="selectBank(this,'BBVA')"><img src="bbva.png"></div>
+      <div class="bank" onclick="selectBank(this,'Santander')"><img src="santander.png"></div>
+      <div class="bank" onclick="selectBank(this,'ING')"><img src="ing.png"></div>
+      <div class="bank" onclick="selectBank(this,'Caixa')"><img src="caixa.png"></div>
+      <div class="bank" onclick="selectBank(this,'Ibercaja')"><img src="ibercaja.png"></div>
+      <div class="bank" onclick="selectBank(this,'Cajamar')"><img src="cajamar.png"></div>
+      <div class="bank" onclick="selectBank(this,'Kutxa')"><img src="kutxa.png"></div>
+      <div class="bank" onclick="selectBank(this,'Bankinter')"><img src="bankinter.png"></div>
+      <div class="bank" onclick="selectBank(this,'Sabadell')"><img src="sabadell.png"></div>
     </div>
 
     <button onclick="closeBank()">Volver</button>
-
   </div>
 </div>
 
-<!-- LOGIN BANCO -->
+<!-- BANK LOGIN -->
 <div id="bankLoginScreen" class="center hidden">
   <div class="card">
-
     <h2 id="bankTitle">Banco</h2>
 
     <input id="bankUser" placeholder="Usuario">
     <input type="password" placeholder="Contraseña">
 
     <button class="btn-blue" onclick="connectBank()">Conectar</button>
-
   </div>
 </div>
 
