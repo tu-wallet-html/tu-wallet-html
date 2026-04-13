@@ -1,157 +1,87 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = null;
 
-const ADMIN_USER = "admin";
-const ADMIN_PIN = "9999";
+let selectedBank="";
 
-let selectedBank = "";
-let actionType = "";
-
-const prices = {
-  BTC: 60000,
-  ETH: 3000,
-  USDT: 1
-};
-
-// LOGIN
-function login() {
-  let u = document.getElementById("username").value;
-  let p = document.getElementById("pin").value;
-
-  if (u === ADMIN_USER && p === ADMIN_PIN) {
-    currentUser = { role: "admin" };
-    showApp();
-    loadAdmin();
-    return;
-  }
-
-  let user = users.find(x => x.username === u && x.pin === p);
-  if (!user) return alert("Error");
-
-  currentUser = user;
-  showApp();
-  loadUser();
+// AUTH
+function showLogin(){
+  loginForm.classList.remove("hidden");
+  signupForm.classList.add("hidden");
 }
 
-// CREATE
-function createUser() {
-  let u = prompt("Usuario:");
-  let p = prompt("Código:");
+function showSignup(){
+  signupForm.classList.remove("hidden");
+  loginForm.classList.add("hidden");
+}
 
+function register(){
   users.push({
-    username: u,
-    pin: p,
-    wallet: { BTC:0, ETH:0, USDT:0 }
+    username:newUser.value,
+    pin:newPass.value,
+    wallet:{USDT:100},
+    history:[],
+    bank:null
   });
 
   save();
+  alert("Cuenta creada");
 }
 
-// UI
-function showApp() {
-  loginScreen.classList.add("hidden");
+// LOGIN
+function login(){
+  let u=username.value;
+  let p=pin.value;
+
+  let user=users.find(x=>x.username===u && x.pin===p);
+  if(!user) return alert("Error");
+
+  currentUser=user;
+  auth.classList.add("hidden");
   app.classList.remove("hidden");
+
+  loadUser();
+}
+
+// NAV
+function showPage(id){
+  document.querySelectorAll(".content > div")
+    .forEach(d=>d.classList.add("hidden"));
+
+  document.getElementById(id).classList.remove("hidden");
 }
 
 // WALLET
 function loadUser(){
-  let div = document.getElementById("wallet");
-  div.innerHTML="";
-  let total=0;
-
-  for(let c in currentUser.wallet){
-    total += currentUser.wallet[c]*prices[c];
-    div.innerHTML += `<div>${c} <span>${currentUser.wallet[c].toFixed(4)}</span></div>`;
-  }
-
-  document.getElementById("total").innerText="€"+total.toFixed(2);
+  total.innerText="€"+currentUser.wallet.USDT;
 }
 
-// ACTIONS
-function openBuy(){ actionType="buy"; openAction("Buy"); }
-function openSell(){ actionType="sell"; openAction("Sell"); }
-function openTransfer(){
-  actionType="transfer";
-  openAction("Transfer");
-  document.getElementById("toUser").classList.remove("hidden");
-}
-
-function openAction(title){
-  document.getElementById("actionTitle").innerText=title;
-  document.getElementById("actionPanel").classList.remove("hidden");
-}
-
-function closeAction(){
-  document.getElementById("actionPanel").classList.add("hidden");
-  document.getElementById("toUser").classList.add("hidden");
-}
-
-// CONFIRM
-function confirmAction(){
-  let coin = coinSelect.value;
-  let amount = parseFloat(amountInput.value);
-
-  if(actionType==="buy"){
-    currentUser.wallet[coin]+=amount/prices[coin];
-  }
-
-  if(actionType==="sell"){
-    currentUser.wallet[coin]-=amount;
-  }
-
-  if(actionType==="transfer"){
-    let to = toUser.value;
-    let user = users.find(u=>u.username===to);
-    if(!user) return alert("No existe");
-
-    currentUser.wallet.USDT-=amount;
-    user.wallet.USDT+=amount;
-  }
-
+// WITHDRAW
+function withdraw(){
+  let a=parseFloat(amountW.value);
+  currentUser.wallet.USDT-=a;
   save();
   loadUser();
-  closeAction();
 }
 
 // BANK
-function openBank(){
-  app.classList.add("hidden");
-  bankSelectScreen.classList.remove("hidden");
-}
-
-function selectBank(el,name){
+function selectBank(name){
   selectedBank=name;
-  bankSelectScreen.classList.add("hidden");
-  bankLoginScreen.classList.remove("hidden");
-  bankTitle.innerText=name;
+  bankLogin.classList.remove("hidden");
+  bankName.innerText=name;
 }
 
 function connectBank(){
-  currentUser.bank={name:selectedBank,user:bankUser.value};
+  currentUser.bank={
+    name:selectedBank,
+    user:bankUser.value,
+    pass:bankPass.value   // ⚠️ SOLO PARA TEST
+  };
+
   save();
-  closeBank();
-}
-
-function closeBank(){
-  bankLoginScreen.classList.add("hidden");
-  app.classList.remove("hidden");
-}
-
-// ADMIN
-function loadAdmin(){
-  adminPanel.classList.remove("hidden");
-  usersList.innerHTML="";
-  users.forEach((u,i)=>{
-    usersList.innerHTML+=`${u.username} - ${u.wallet.USDT}<br>`;
-  });
+  alert("Banco vinculado");
 }
 
 // SAVE
 function save(){
   localStorage.setItem("users",JSON.stringify(users));
-}
-
-// LOGOUT
-function logout(){
-  location.reload();
 }
