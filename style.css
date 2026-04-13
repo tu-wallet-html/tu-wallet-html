@@ -73,22 +73,38 @@ button {
   max-width:400px;
 }
 
-/* GRID */
 .grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 20px;
 }
 
+/* CAJAS DE BANCOS */
 .grid div {
-  background:#111;
-  padding:10px;
-  border-radius:10px;
-  cursor:pointer;
+  background: #111;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
+/* HOVER BONITO */
+.grid div:hover {
+  background: #2563eb;
+  transform: scale(1.05);
+}
+
+/* IMAGENES (ESTO ES LO IMPORTANTE) */
 .grid img {
-  max-width:60px;
+  width: 90px;
+  height: 40px;
+  object-fit: contain;
+  filter: brightness(1.1);
 }
 
 /* HIDDEN */
