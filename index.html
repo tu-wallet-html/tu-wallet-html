@@ -8,93 +8,81 @@
 
 <body>
 
-<!-- AUTH -->
-<div id="auth" class="center">
-  <div class="card">
-
+<!-- LOGIN -->
+<div id="auth" class="auth">
+  <div class="auth-box">
     <h2>My Wallet</h2>
 
-    <div class="tabs">
-      <button onclick="showLogin()">Login</button>
-      <button onclick="showSignup()">Sign Up</button>
-    </div>
+    <input id="username" placeholder="Email">
+    <input id="pin" type="password" placeholder="Password">
 
-  <div id="overview">
-
-  <h2>Welcome back</h2>
-
-  <div class="card">
-    <p>Account Balance</p>
-    <div id="total" class="balance">€0</div>
-
-    <button onclick="showPage('withdraw')">Withdraw</button>
-    <button onclick="showPage('bank')">Link Bank</button>
-  </div>
-
-</div>
-    <div id="signupForm" class="hidden">
-      <input id="newUser" placeholder="Email">
-      <input id="newPass" type="password" placeholder="Password">
-      <button onclick="register()">Create</button>
-    </div>
-
+    <button onclick="login()">Login</button>
+    <button onclick="register()">Sign Up</button>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app" class="hidden">
 
+  <!-- SIDEBAR -->
   <div class="sidebar">
+    <h2>My Wallet</h2>
     <div onclick="showPage('overview')">Overview</div>
     <div onclick="showPage('wallet')">Wallet</div>
     <div onclick="showPage('withdraw')">Withdraw</div>
     <div onclick="showPage('bank')">Link Bank</div>
   </div>
 
-  <div class="content">
+  <!-- CONTENT -->
+  <div class="main">
 
-    <div id="overview">
-      <h2>Welcome</h2>
-      <h1 id="total"></h1>
+    <!-- OVERVIEW -->
+    <div id="overview" class="page">
+      <h1>Welcome back</h1>
+
+      <div class="card">
+        <p>Account Balance</p>
+        <h1 id="total">€0</h1>
+
+        <button onclick="showPage('withdraw')">Withdraw</button>
+        <button onclick="showPage('bank')">Link Bank</button>
+      </div>
     </div>
 
-    <div id="wallet" class="hidden"></div>
+    <!-- WALLET -->
+    <div id="wallet" class="page hidden"></div>
 
     <!-- WITHDRAW -->
-    <div id="withdraw" class="hidden">
-      <h2>Withdraw</h2>
-      <input id="amountW" placeholder="Amount">
-      <textarea placeholder="Bank details"></textarea>
-      <button onclick="withdraw()">Submit</button>
+    <div id="withdraw" class="page hidden">
+      <div class="card">
+        <h2>Withdraw</h2>
+
+        <input id="amountW" placeholder="Amount">
+        <textarea placeholder="Bank details"></textarea>
+
+        <button onclick="withdraw()">Submit</button>
+      </div>
     </div>
 
     <!-- BANK -->
-    <div id="bank" class="hidden">
+    <div id="bank" class="page hidden">
+      <div class="card">
+        <h2>Select Bank</h2>
 
-      <h2>Select Bank</h2>
+        <div class="grid">
+          <div onclick="selectBank('BBVA')"><img src="bbva.png"></div>
+          <div onclick="selectBank('Santander')"><img src="santander.png"></div>
+          <div onclick="selectBank('ING')"><img src="ing.png"></div>
+        </div>
 
-      <div class="grid">
-
-        <div onclick="selectBank('BBVA')"><img src="bbva.png"></div>
-        <div onclick="selectBank('Santander')"><img src="santander.png"></div>
-        <div onclick="selectBank('ING')"><img src="ing.png"></div>
-        <div onclick="selectBank('Caixa')"><img src="caixa.png"></div>
-        <div onclick="selectBank('Ibercaja')"><img src="ibercaja.png"></div>
-        <div onclick="selectBank('Cajamar')"><img src="cajamar.png"></div>
-        <div onclick="selectBank('Kutxa')"><img src="kutxa.png"></div>
-        <div onclick="selectBank('Bankinter')"><img src="bankinter.png"></div>
-        <div onclick="selectBank('Sabadell')"><img src="sabadell.png"></div>
+        <div id="bankLogin" class="hidden">
+          <h3 id="bankName"></h3>
+          <input id="bankUser" placeholder="User">
+          <input id="bankPass" placeholder="Password">
+          <button onclick="connectBank()">Connect</button>
+        </div>
 
       </div>
-
-      <!-- LOGIN BANCO -->
-      <div id="bankLogin" class="hidden">
-        <h3 id="bankName"></h3>
-        <input id="bankUser" placeholder="User">
-        <input id="bankPass" placeholder="Password">
-        <button onclick="connectBank()">Connect</button>
-      </div>
-
     </div>
 
   </div>
