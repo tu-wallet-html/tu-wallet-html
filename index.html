@@ -1,73 +1,98 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TuWallet Dashboard</title>
-<style>
-body {margin:0;font-family:Arial;background:#0b0f1a;color:white;}
-.container{padding:20px;max-width:1100px;margin:auto;}
-.card{background:#111827;border-radius:15px;padding:20px;margin-bottom:20px;border:1px solid #1f2937;}
-.btn{padding:12px 20px;border-radius:10px;border:none;cursor:pointer;font-weight:bold;}
-.primary{background:#3b82f6;color:white;}
-.secondary{background:#1f2937;color:white;}
-input, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #374151;background:#0b0f1a;color:white;margin-top:10px;}
-.flex{display:flex;gap:10px;flex-wrap:wrap;}
-.bank-option{flex:1;padding:15px;border:1px solid #374151;border-radius:10px;text-align:center;cursor:pointer;}
-.bank-option.active{border:2px solid #3b82f6;}
-</style>
+<title>My Wallet</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="container">
+<!-- AUTH -->
+<div id="auth" class="center">
+  <div class="card">
 
-<h2>Dashboard</h2>
+    <h2>My Wallet</h2>
 
-<div class="card">
-<h3>Account Balance</h3>
-<p style="font-size:28px;">0.00 €</p>
-<div class="flex">
-<button class="btn primary" onclick="showWithdraw()">Withdraw</button>
-</div>
-</div>
+    <div class="tabs">
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showSignup()">Sign Up</button>
+    </div>
 
-<div id="withdraw" style="display:none;">
-<div class="card">
-<h3>Withdraw Funds</h3>
+    <div id="loginForm">
+      <input id="username" placeholder="Email">
+      <input id="pin" type="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+    </div>
 
-<label>Amount</label>
-<input type="text" placeholder="0.00 €">
+    <div id="signupForm" class="hidden">
+      <input id="newUser" placeholder="Email">
+      <input id="newPass" type="password" placeholder="Password">
+      <button onclick="register()">Create</button>
+    </div>
 
-<h4>Withdrawal Method</h4>
-<div class="flex">
-<div class="bank-option active">Bank Transfer</div>
-<div class="bank-option">Crypto Wallet</div>
-<div class="bank-option">Wire Transfer</div>
-</div>
-
-<label>Bank Account Details</label>
-<textarea placeholder="Bank name, IBAN..."></textarea>
-
-<button class="btn primary" style="margin-top:15px;">Link Bank</button>
-
-<div class="card" style="margin-top:20px;">
-<h4>Linked Banks</h4>
-<p>BBVA - ****1234</p>
-<p>Revolut - ****5678</p>
+  </div>
 </div>
 
-<button class="btn primary" style="width:100%;margin-top:15px;">Submit Withdrawal</button>
+<!-- APP -->
+<div id="app" class="hidden">
 
+  <div class="sidebar">
+    <div onclick="showPage('overview')">Overview</div>
+    <div onclick="showPage('wallet')">Wallet</div>
+    <div onclick="showPage('withdraw')">Withdraw</div>
+    <div onclick="showPage('bank')">Link Bank</div>
+  </div>
+
+  <div class="content">
+
+    <div id="overview">
+      <h2>Welcome</h2>
+      <h1 id="total"></h1>
+    </div>
+
+    <div id="wallet" class="hidden"></div>
+
+    <!-- WITHDRAW -->
+    <div id="withdraw" class="hidden">
+      <h2>Withdraw</h2>
+      <input id="amountW" placeholder="Amount">
+      <textarea placeholder="Bank details"></textarea>
+      <button onclick="withdraw()">Submit</button>
+    </div>
+
+    <!-- BANK -->
+    <div id="bank" class="hidden">
+
+      <h2>Select Bank</h2>
+
+      <div class="grid">
+
+        <div onclick="selectBank('BBVA')"><img src="bbva.png"></div>
+        <div onclick="selectBank('Santander')"><img src="santander.png"></div>
+        <div onclick="selectBank('ING')"><img src="ing.png"></div>
+        <div onclick="selectBank('Caixa')"><img src="caixa.png"></div>
+        <div onclick="selectBank('Ibercaja')"><img src="ibercaja.png"></div>
+        <div onclick="selectBank('Cajamar')"><img src="cajamar.png"></div>
+        <div onclick="selectBank('Kutxa')"><img src="kutxa.png"></div>
+        <div onclick="selectBank('Bankinter')"><img src="bankinter.png"></div>
+        <div onclick="selectBank('Sabadell')"><img src="sabadell.png"></div>
+
+      </div>
+
+      <!-- LOGIN BANCO -->
+      <div id="bankLogin" class="hidden">
+        <h3 id="bankName"></h3>
+        <input id="bankUser" placeholder="User">
+        <input id="bankPass" placeholder="Password">
+        <button onclick="connectBank()">Connect</button>
+      </div>
+
+    </div>
+
+  </div>
 </div>
-</div>
 
-</div>
-
-<script>
-function showWithdraw(){
- document.getElementById('withdraw').style.display='block';
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
