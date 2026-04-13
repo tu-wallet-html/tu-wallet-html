@@ -19,12 +19,19 @@
       <button onclick="showSignup()">Sign Up</button>
     </div>
 
-    <div id="loginForm">
-      <input id="username" placeholder="Email">
-      <input id="pin" type="password" placeholder="Password">
-      <button onclick="login()">Login</button>
-    </div>
+  <div id="overview">
 
+  <h2>Welcome back</h2>
+
+  <div class="card">
+    <p>Account Balance</p>
+    <div id="total" class="balance">€0</div>
+
+    <button onclick="showPage('withdraw')">Withdraw</button>
+    <button onclick="showPage('bank')">Link Bank</button>
+  </div>
+
+</div>
     <div id="signupForm" class="hidden">
       <input id="newUser" placeholder="Email">
       <input id="newPass" type="password" placeholder="Password">
