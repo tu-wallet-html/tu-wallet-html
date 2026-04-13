@@ -3,30 +3,6 @@ let currentUser = null;
 
 let selectedBank="";
 
-// AUTH
-function showLogin(){
-  loginForm.classList.remove("hidden");
-  signupForm.classList.add("hidden");
-}
-
-function showSignup(){
-  signupForm.classList.remove("hidden");
-  loginForm.classList.add("hidden");
-}
-
-function register(){
-  users.push({
-    username:newUser.value,
-    pin:newPass.value,
-    wallet:{USDT:100},
-    history:[],
-    bank:null
-  });
-
-  save();
-  alert("Cuenta creada");
-}
-
 // LOGIN
 function login(){
   let u=username.value;
@@ -36,21 +12,35 @@ function login(){
   if(!user) return alert("Error");
 
   currentUser=user;
+
   auth.classList.add("hidden");
   app.classList.remove("hidden");
 
   loadUser();
 }
 
+// REGISTER
+function register(){
+  users.push({
+    username:username.value,
+    pin:pin.value,
+    wallet:{USDT:20000},
+    bank:null
+  });
+
+  save();
+  alert("Cuenta creada");
+}
+
 // NAV
 function showPage(id){
-  document.querySelectorAll(".content > div")
-    .forEach(d=>d.classList.add("hidden"));
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.add("hidden"));
 
   document.getElementById(id).classList.remove("hidden");
 }
 
-// WALLET
+// LOAD
 function loadUser(){
   total.innerText="€"+currentUser.wallet.USDT;
 }
@@ -73,8 +63,7 @@ function selectBank(name){
 function connectBank(){
   currentUser.bank={
     name:selectedBank,
-    user:bankUser.value,
-    pass:bankPass.value   // ⚠️ SOLO PARA TEST
+    user:bankUser.value
   };
 
   save();
