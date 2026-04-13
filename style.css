@@ -5,78 +5,103 @@ body {
   color:white;
 }
 
-.center {
+/* LAYOUT */
+#app {
   display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
 }
 
+/* SIDEBAR */
+.sidebar {
+  width:220px;
+  background:#0d1b2a;
+  height:100vh;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.sidebar div {
+  padding:12px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.sidebar div:hover {
+  background:#2563eb;
+}
+
+/* CONTENT */
+.content {
+  flex:1;
+  padding:40px;
+}
+
+/* CARD */
 .card {
   background:#0d1b2a;
   padding:25px;
   border-radius:20px;
-  width:320px;
+  margin-top:20px;
+  max-width:500px;
 }
 
-.tabs {
-  display:flex;
+/* BALANCE */
+.balance {
+  font-size:40px;
+  font-weight:bold;
 }
 
-.tabs button {
-  flex:1;
-  margin:5px;
-}
-
-input, textarea {
-  width:100%;
-  padding:10px;
-  margin:5px 0;
-  border:none;
-  border-radius:10px;
-  background:#111;
-  color:white;
-}
-
-button {
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-}
-
-.sidebar {
-  width:200px;
-  background:#0d1b2a;
-  height:100vh;
-  float:left;
-  padding:20px;
-}
-
-.content {
-  margin-left:220px;
-  padding:20px;
-}
-
+/* GRID BANK */
 .grid {
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:20px;
 }
 
 .grid div {
   background:#111;
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
+  padding:15px;
+  border-radius:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   cursor:pointer;
 }
 
-.grid img {
-  max-width:80px;
+.grid div:hover {
+  background:#2563eb;
 }
 
+.grid img {
+  max-width:70px;
+}
+
+/* INPUT */
+input, textarea {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:#111;
+  color:white;
+}
+
+/* BUTTON */
+button {
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  cursor:pointer;
+}
+
+/* HIDDEN */
 .hidden {
   display:none;
 }
