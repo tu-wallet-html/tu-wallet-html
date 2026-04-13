@@ -5,7 +5,42 @@ body {
   color:white;
 }
 
-/* LAYOUT */
+/* LOGIN */
+.auth {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.auth-box {
+  background:#0d1b2a;
+  padding:30px;
+  border-radius:20px;
+  width:300px;
+}
+
+input, textarea {
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+  background:#111;
+  color:white;
+}
+
+button {
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  margin:5px;
+  cursor:pointer;
+}
+
+/* APP LAYOUT */
 #app {
   display:flex;
 }
@@ -16,24 +51,15 @@ body {
   background:#0d1b2a;
   height:100vh;
   padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
 }
 
 .sidebar div {
-  padding:12px;
-  border-radius:10px;
+  margin:10px 0;
   cursor:pointer;
-  transition:0.2s;
 }
 
-.sidebar div:hover {
-  background:#2563eb;
-}
-
-/* CONTENT */
-.content {
+/* MAIN */
+.main {
   flex:1;
   padding:40px;
 }
@@ -44,61 +70,25 @@ body {
   padding:25px;
   border-radius:20px;
   margin-top:20px;
-  max-width:500px;
+  max-width:400px;
 }
 
-/* BALANCE */
-.balance {
-  font-size:40px;
-  font-weight:bold;
-}
-
-/* GRID BANK */
+/* GRID */
 .grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-top:20px;
+  gap:10px;
 }
 
 .grid div {
   background:#111;
-  padding:15px;
-  border-radius:15px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  padding:10px;
+  border-radius:10px;
   cursor:pointer;
-}
-
-.grid div:hover {
-  background:#2563eb;
 }
 
 .grid img {
-  max-width:70px;
-}
-
-/* INPUT */
-input, textarea {
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border:none;
-  border-radius:10px;
-  background:#111;
-  color:white;
-}
-
-/* BUTTON */
-button {
-  padding:12px;
-  margin-top:10px;
-  border:none;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  cursor:pointer;
+  max-width:60px;
 }
 
 /* HIDDEN */
