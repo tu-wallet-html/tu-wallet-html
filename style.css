@@ -1,120 +1,82 @@
 body {
-  margin: 0;
-  font-family: Arial;
-  background: #000;
-  color: white;
+  margin:0;
+  font-family:Arial;
+  background:#050b18;
+  color:white;
 }
 
 .center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
 .card {
-  background: #111;
-  padding: 25px;
-  border-radius: 20px;
-  width: 320px;
-  text-align: center;
+  background:#0d1b2a;
+  padding:25px;
+  border-radius:20px;
+  width:320px;
 }
 
-.logo {
-  width: 180px;
+.tabs {
+  display:flex;
 }
 
-.logo-small {
-  width: 100px;
+.tabs button {
+  flex:1;
+  margin:5px;
 }
 
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: none;
-  background: #1a1a1a;
-  color: white;
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+  border:none;
+  border-radius:10px;
+  background:#111;
+  color:white;
 }
 
 button {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 5px;
-  background: #222;
-  color: white;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
 }
 
-.btn-blue {
-  background: #2563eb;
+.sidebar {
+  width:200px;
+  background:#0d1b2a;
+  height:100vh;
+  float:left;
+  padding:20px;
 }
 
-/* TOP */
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+.content {
+  margin-left:220px;
+  padding:20px;
 }
 
-/* BALANCE */
-.balance {
-  text-align: center;
-}
-
-/* WALLET */
-.wallet div {
-  background: #111;
-  margin: 10px;
-  padding: 12px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-}
-
-/* ACTIONS */
-.actions {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px;
-}
-
-.action {
-  background: #111;
-  padding: 15px;
-  border-radius: 20px;
-  text-align: center;
-  width: 70px;
-  cursor: pointer;
-}
-
-.action:hover {
-  background: #2563eb;
-}
-
-/* BANK GRID */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-.bank {
-  background: #1a1a1a;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+.grid div {
+  background:#111;
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+  cursor:pointer;
 }
 
-.bank img {
-  max-width: 80px;
-  max-height: 35px;
+.grid img {
+  max-width:80px;
 }
 
-/* HIDDEN */
 .hidden {
-  display: none;
+  display:none;
 }
