@@ -1,7 +1,6 @@
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let currentUser = null;
-
-let selectedBank="";
+let selectedBank = "";
 
 // LOGIN
 function login(){
@@ -40,7 +39,7 @@ function showPage(id){
   document.getElementById(id).classList.remove("hidden");
 }
 
-// LOAD
+// LOAD USER
 function loadUser(){
   total.innerText="€"+currentUser.wallet.USDT;
 }
@@ -55,15 +54,15 @@ function withdraw(){
 
 // BANK
 function selectBank(name){
-  selectedBank=name;
+  selectedBank = name;
   bankLogin.classList.remove("hidden");
-  bankName.innerText=name;
+  bankName.innerText = "Bienvenido a " + name;
 }
 
 function connectBank(){
-  currentUser.bank={
-    name:selectedBank,
-    user:bankUser.value
+  currentUser.bank = {
+    name: selectedBank,
+    user: bankUser.value
   };
 
   save();
